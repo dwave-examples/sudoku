@@ -4,11 +4,14 @@ A demo on how to solve a Sudoku puzzle with D-Wave Ocean.
 
 Usage
 -----
-``python sudoku.py <sudoku file path>``
+::
+
+  python sudoku.py <sudoku file path>
 
 For example,
 ::
-    python sudoku.py problem.txt
+
+  python sudoku.py problem.txt
 
 Code Overview
 -------------
@@ -39,6 +42,7 @@ the following format:
 
 For example,
 ::
+
   8 2 0 9 1 0 0 0 7
   9 0 0 7 0 6 8 1 2
   0 1 7 8 0 0 0 9 0
@@ -56,8 +60,8 @@ Comments on the variables
   sub-square is a square matrix with ``n`` items, it means that ``n``
   must be a square number (i.e. for a sub-square of size ``m`` by ``m``,
   ``m * m = n``). Hence in the code, the variables ``n`` and ``m``
-  represent:
-  ::
+  represent::
+
     n == number of rows == number of columns
     m == sqrt(n) == number of sub-square rows == number of sub-square columns
  
