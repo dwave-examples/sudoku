@@ -1,5 +1,6 @@
-Sudoku Demo
-===========
+======
+Sudoku
+======
 A demo on how to solve a Sudoku puzzle with D-Wave Ocean.
 
 Usage
@@ -77,4 +78,4 @@ Comments on the solver
 
 License
 -------
-Released under the Apache License 2.0. See `LICENSE <../LICENSE>`_ file.
+Released under the Apache License 2.0. See `LICENSE <LICENSE>`_ file.
