@@ -181,7 +181,7 @@ def main():
 
     # Verify
     if is_correct(matrix):
-        print("The solution is correct")
+        print("The solution is correct testing")
     else:
         print("The solution is incorrect")
 
