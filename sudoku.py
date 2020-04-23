@@ -20,7 +20,7 @@ import sys
    
 from dimod.generators.constraints import combinations
 from hybrid.reference import KerberosSampler
-
+  
 
 def get_label(row, col, digit):
     """Returns a string of the cell coordinates and the cell value in a
