@@ -17,7 +17,7 @@ from __future__ import print_function
 import dimod
 import math
 import sys
-
+ 
 from dimod.generators.constraints import combinations
 from hybrid.reference import KerberosSampler
 
