@@ -19,38 +19,18 @@ import os
 
 class IntegrationTests(unittest.TestCase):
 
-    def setUp(self):
-        self.verificationErrors = []
-
-    def VerifyErrors(self,output):
-
-        try: 
-            self.assertNotIn("ERROR",output.upper() )
-        except AssertionError as e:
-            print("Verify if error string contains in output failed \n")
-            self.verificationErrors.append(str(e))
-
-        try: 
-            self.assertNotIn("WARNING",output.upper() )
-        except AssertionError as e:
-            print("Verify if warning string contains in output failed \n")
-            self.verificationErrors.append(str(e))
-
     def test_sudoku(self):
         cwd=os.getcwd()
         output=subprocess.check_output(["python", cwd+"/sudoku.py", "problem.txt"])
         output=str(output)
         print("Example output \n"+output)
-        try: 
-            self.assertIn("THE SOLUTION IS CORRECT",output.upper() )
-        except AssertionError as e:
-            print("Test sudoku example verification failed \n")
-            self.verificationErrors.append(str(e))
 
-        self.VerifyErrors(output)
-
-    def tearDown(self):
-        self.assertEqual([], self.verificationErrors)
+        with self.subTest(msg="Verify if output contains 'THE SOLUTION IS CORRECT' \n"):
+            self.assertIn("THE SOLUTION IS CORRECT".upper(),output.upper())
+        with self.subTest(msg="Verify if error string contains in output \n"):
+            self.assertNotIn("ERROR",output.upper())
+        with self.subTest(msg="Verify if warning string contains in output \n"):
+            self.assertNotIn("WARNING",output.upper())
 
 if __name__ == '__main__':
     unittest.main()
