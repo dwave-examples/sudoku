@@ -255,15 +255,19 @@ workflows:
   version: 2.1
   tests:
     jobs:
+      - test-py38
       - test-py37
       - test-py36
       - test-py35
+      - test-osx-py38
       - test-osx-py37
       - test-osx-py36
       - test-osx-py35
+      - test-win-py38
       - test-win-py37
       - test-win-py36
       - test-win-py35
+      - test-win-py38x86
       - test-win-py37x86
       - test-win-py36x86
       - test-win-py35x86
