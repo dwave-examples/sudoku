@@ -1,3 +1,7 @@
+.. image:: https://circleci.com/gh/dwave-examples/sudoku.svg?style=svg
+    :target: https://circleci.com/gh/dwave-examples/sudoku
+    :alt: Linux/Mac/Windows build status
+
 ======
 Sudoku
 ======
