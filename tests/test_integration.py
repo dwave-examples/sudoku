@@ -16,14 +16,19 @@ import subprocess
 import unittest
 import time
 import os
+import sys
+
+project_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 class IntegrationTests(unittest.TestCase):
 
     def test_sudoku(self):
-        cwd=os.getcwd()
-        output=subprocess.check_output(["python", cwd+"/sudoku.py", "problem.txt"])
+        demo_file = os.path.join(project_dir, 'sudoku.py')
+        output = subprocess.check_output([sys.executable, demo_file, "problem.txt"])
         output=str(output)
-        print("Example output \n"+output)
+        if os.getenv('DEBUG_OUTPUT'):
+            print("Example output \n"+ output)
+
 
         with self.subTest(msg="Verify if output contains 'THE SOLUTION IS CORRECT' \n"):
             self.assertIn("THE SOLUTION IS CORRECT".upper(),output.upper())
