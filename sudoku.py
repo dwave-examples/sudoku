@@ -20,6 +20,7 @@ import sys
 
 from dimod.generators.constraints import combinations
 from hybrid.reference import KerberosSampler
+from dimod import fix_variables
 
 
 def get_label(row, col, digit):
@@ -165,12 +166,14 @@ def main():
                 bqm.fix_variable(get_label(row, col, value), 1)
 
     # Solve BQM
+    fixed = fix_variables(bqm, sampling_mode=False)
+    bqm.fix_variables(fixed)
     solution = KerberosSampler().sample(bqm, max_iter=10, convergence=3)
     best_solution = solution.first.sample
 
     # Print solution
     solution_list = [k for k, v in best_solution.items() if v == 1]
-
+    solution_list.extend([k for k, v in fixed.items() if v == 1])
     for label in solution_list:
         coord, digit = label.split('_')
         row, col = map(int, coord.split(','))
