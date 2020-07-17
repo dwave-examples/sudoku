@@ -7,13 +7,13 @@ A demo on how to solve a Sudoku puzzle with D-Wave Ocean.
 ## Usage
 
 ```
-  python sudoku.py <sudoku file path>
+python sudoku.py <sudoku file path>
 ```
 
 For example,
 
 ```
-  python sudoku.py problem.txt
+python sudoku.py problem.txt
 ```
 
 ## Code Overview
@@ -46,15 +46,15 @@ the following format:
 For example,
 
 ```
-  8 2 0 9 1 0 0 0 7
-  9 0 0 7 0 6 8 1 2
-  0 1 7 8 0 0 0 9 0
-  0 8 0 0 0 0 9 7 0
-  0 5 2 0 9 3 1 8 0
-  6 0 0 1 8 7 0 0 0
-  0 7 8 0 0 9 0 5 0
-  3 0 0 2 5 0 7 6 0
-  5 0 9 3 0 1 2 0 8
+8 2 0 9 1 0 0 0 7
+9 0 0 7 0 6 8 1 2
+0 1 7 8 0 0 0 9 0
+0 8 0 0 0 0 9 7 0
+0 5 2 0 9 3 1 8 0
+6 0 0 1 8 7 0 0 0
+0 7 8 0 0 9 0 5 0
+3 0 0 2 5 0 7 6 0
+5 0 9 3 0 1 2 0 8
 ```
 
 ### Comments on the variables
