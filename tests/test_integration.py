@@ -24,7 +24,8 @@ class IntegrationTests(unittest.TestCase):
 
     def test_sudoku(self):
         demo_file = os.path.join(project_dir, 'sudoku.py')
-        output = subprocess.check_output([sys.executable, demo_file, "problem.txt"])
+        problem_file = os.path.join(project_dir, 'problem.txt')
+        output = subprocess.check_output([sys.executable, demo_file, problem_file])
         output = str(output).upper()
         if os.getenv('DEBUG_OUTPUT'):
             print("Example output \n" + output)
