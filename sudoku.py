@@ -130,7 +130,7 @@ def main():
 
     # Constraint: Each sub-square cannot have duplicates
     # Build indices of a basic subsquare
-    subsquare_indices = [(row, col) for row in range(3) for col in range(3)]
+    subsquare_indices = [(row, col) for row in range(m) for col in range(m)]
 
     # Build full sudoku array
     for r_scalar in range(m):
