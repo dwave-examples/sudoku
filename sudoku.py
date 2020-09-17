@@ -174,6 +174,14 @@ def main():
     for label in solution_list:
         coord, digit = label.split('_')
         row, col = map(int, coord.split(','))
+
+        if matrix[row][col] > 0:
+            # the returned solution is not optimal and either tried to
+            # overwrite one of the starting values, or returned more than
+            # one value for the position. In either case the solution is
+            # likely incorrect.
+            continue
+
         matrix[row][col] = int(digit)
 
     for line in matrix:
