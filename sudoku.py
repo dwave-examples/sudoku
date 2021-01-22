@@ -17,6 +17,7 @@ from __future__ import print_function
 import dimod
 import math
 import sys
+import copy
 
 from dimod.generators.constraints import combinations
 from hybrid.reference import KerberosSampler
@@ -27,7 +28,6 @@ def get_label(row, col, digit):
     standard format.
     """
     return "{row},{col}_{digit}".format(**locals())
-
 
 def get_matrix(filename):
     """Return a list of lists containing the content of the input text file.
@@ -47,7 +47,6 @@ def get_matrix(filename):
             lines.append(new_line)
 
     return lines
-
 
 def is_correct(matrix):
     """Verify that the matrix satisfies the Sudoku constraints.
@@ -85,21 +84,8 @@ def is_correct(matrix):
 
     return True
 
-
-def main():
-    # Note: for the purposes of a code example, main() is written as a script 
-
-    # Read user input
-    if len(sys.argv) > 1:
-        filename = sys.argv[1]
-    else:
-        filename = "problem.txt"
-        print("Warning: using default problem file, '{}'. Usage: python "
-              "{} <sudoku filepath>".format(filename, sys.argv[0]))
-
-    # Read sudoku problem
-    matrix = get_matrix(filename)
-
+def build_bqm(matrix):
+    """Build BQM using Sudoku constraints"""
     # Set up
     n = len(matrix)          # Number of rows/columns in sudoku
     m = int(math.sqrt(n))    # Number of rows/columns in sudoku subsquare
@@ -164,36 +150,53 @@ def main():
                 # selected.
                 bqm.fix_variable(get_label(row, col, value), 1)
 
-    # Solve BQM
+    return bqm
+
+def solve_sudoku(bqm, matrix):
+    """Solve BQM and return matrix with solution."""
     solution = KerberosSampler().sample(bqm, max_iter=10, convergence=3)
     best_solution = solution.first.sample
-
-    # Print solution
     solution_list = [k for k, v in best_solution.items() if v == 1]
+
+    result = copy.deepcopy(matrix)
 
     for label in solution_list:
         coord, digit = label.split('_')
         row, col = map(int, coord.split(','))
 
-        if matrix[row][col] > 0:
+        if result[row][col] > 0:
             # the returned solution is not optimal and either tried to
             # overwrite one of the starting values, or returned more than
             # one value for the position. In either case the solution is
             # likely incorrect.
             continue
 
-        matrix[row][col] = int(digit)
+        result[row][col] = int(digit)
 
-    for line in matrix:
+    return result
+
+if __name__ == "__main__":
+    # Read user input
+    if len(sys.argv) > 1:
+        filename = sys.argv[1]
+    else:
+        filename = "problem.txt"
+        print("Warning: using default problem file, '{}'. Usage: python "
+              "{} <sudoku filepath>".format(filename, sys.argv[0]))
+
+    # Read sudoku problem as matrix
+    matrix = get_matrix(filename)
+
+    # Solve BQM and update matrix
+    bqm = build_bqm(matrix)
+    result = solve_sudoku(bqm, matrix)
+
+    # Print solution
+    for line in result:
         print(*line, sep=" ")   # Print list without commas or brackets
 
     # Verify
-    if is_correct(matrix):
+    if is_correct(result):
         print("The solution is correct")
     else:
         print("The solution is incorrect")
-
-
-if __name__ == "__main__":
-    main()
-

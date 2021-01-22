@@ -14,7 +14,6 @@
 
 import subprocess
 import unittest
-import time
 import os
 import sys
 

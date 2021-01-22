@@ -12,19 +12,43 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os
-import subprocess
 import sys
 import unittest
+from unittest.mock import patch
+from io import StringIO
 
-# /path/to/sudoku/
-project_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-print(project_dir)
+from sudoku import is_correct, build_bqm, solve_sudoku
 
+class TestSudoku(unittest.TestCase):
+    def test_is_correct(self):
+        bad_matrix = [[1,2,3,2],
+                      [3,2,1,4],
+                      [4,1,2,3],
+                      [2,3,4,1]]
 
-class TestSmoke(unittest.TestCase):
-    def test_smoke(self):
-        demo_path = os.path.join(project_dir, 'sudoku.py')
-        arg = 'problem.txt'
+        with patch('sys.stdout', new_callable=StringIO) as mock_stdout:
+            self.assertFalse(is_correct(bad_matrix))
+            self.assertIn("Error in row:  [1, 2, 3, 2]", mock_stdout.getvalue())
 
-        subprocess.check_output([sys.executable, demo_path, arg])
+        good_matrix = [[1,4,3,2],
+                       [3,2,1,4],
+                       [4,1,2,3],
+                       [2,3,4,1]]
+
+        self.assertTrue(is_correct(good_matrix))
+
+    def test_solve_sudoku(self):
+        matrix = [[1,0,0,0],
+                  [0,0,0,4],
+                  [0,0,2,0],
+                  [0,3,0,0]]
+
+        target = [[1,4,3,2],
+                  [3,2,1,4],
+                  [4,1,2,3],
+                  [2,3,4,1]]
+
+        bqm = build_bqm(matrix)
+        result = solve_sudoku(bqm, matrix)
+
+        self.assertEqual(result, target)
