@@ -17,7 +17,7 @@ import unittest
 from unittest.mock import patch
 from io import StringIO
 
-from sudoku import *
+from sudoku import is_correct, build_bqm, solve_sudoku
 
 class TestSudoku(unittest.TestCase):
     def test_is_correct(self):
@@ -49,6 +49,6 @@ class TestSudoku(unittest.TestCase):
                   [2,3,4,1]]
 
         bqm = build_bqm(matrix)
-        solve_sudoku(bqm, matrix)
+        result = solve_sudoku(bqm, matrix)
 
-        self.assertEqual(matrix, target)
+        self.assertEqual(result, target)
