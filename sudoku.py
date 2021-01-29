@@ -53,7 +53,7 @@ def is_correct(matrix):
 
     Args:
       matrix(list of lists): list contains 'n' lists, where each of the 'n'
-        lists contains 'n' digits. 
+        lists contains 'n' digits.
     """
     n = len(matrix)        # Number of rows/columns
     m = int(math.sqrt(n))  # Number of subsquare rows/columns
@@ -154,7 +154,10 @@ def build_bqm(matrix):
 
 def solve_sudoku(bqm, matrix):
     """Solve BQM and return matrix with solution."""
-    solution = KerberosSampler().sample(bqm, max_iter=10, convergence=3)
+    solution = KerberosSampler().sample(bqm,
+                                        max_iter=10,
+                                        convergence=3,
+                                        qpu_params={'label': 'Example - Sudoku'})
     best_solution = solution.first.sample
     solution_list = [k for k, v in best_solution.items() if v == 1]
 
