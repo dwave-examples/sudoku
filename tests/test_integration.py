@@ -20,7 +20,7 @@ import sys
 project_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 class IntegrationTests(unittest.TestCase):
-
+    @unittest.skipIf(os.getenv('SKIP_INT_TESTS'), "Skipping integration test.")
     def test_sudoku(self):
         demo_file = os.path.join(project_dir, 'sudoku.py')
         problem_file = os.path.join(project_dir, 'problem.txt')
