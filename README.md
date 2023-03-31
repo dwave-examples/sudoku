@@ -1,4 +1,4 @@
-[![Linux/Mac/Windows build status](https://circleci.com/gh/dwave-examples/sudoku.svg?style=svg)](https://circleci.com/gh/dwave-examples/sudoku)
+[![Linux/Mac/Windows build status](https://circleci.com/gh/dwave-examples/sudoku.svg?style=shield)](https://circleci.com/gh/dwave-examples/sudoku)
 [![Open in Leap IDE](https://cdn-assets.cloud.dwavesys.com/shared/latest/badges/leapide.svg)](https://ide.dwavesys.io/from-referrer)
 
 # Sudoku
